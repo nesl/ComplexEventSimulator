@@ -15,17 +15,17 @@ Complex Event Simulator
 1. Execute in one command line tab `./CARLA_0.9.10/CarlaUE4.sh`
 2. Use the next command to generate the scenario `scenic pedestrian.scenic --simulate --param num_scenario 0 --param num_extra_pedestrians 0 --param output_dir camera_img --param bind_address '127.0.0.1' --param cameras_on "1,2"`
 	* `num_scenario`: choose one of the predefined scenarios encoded in the file
-	* `num_extra_pedestrians`: how many extra pedestrians to render, besides the ones needed for the scenario
+	* `num_extra_pedestrians`: how many extra pedestrians to render, besides the ones needed for the scenario. If no extra pedestrians put 0
 	* `output_dir`: where to save images if a camera is instantiated
-	* `bind_address`: which address to bind in order to allow for transmitting of camera frames
-	* `cameras_on`: select the cameras to instantiate. These cameras are defined in **locations.txt**
+	* `bind_address`: which address to bind in order to allow for transmitting of camera frames, if you don't want to bind to anything just leave it as ""
+	* `cameras_on`: select the cameras to instantiate. These cameras are defined in **locations.txt**. If you don't want to use any camera just leave it as ""
 
 You can use the **get_spectator_pos.py** to check the location of any place in the simulation.
 
 
 ## Changes to Scenic
 
-* Added the capability to specify both depth and RGB cameras, as shown in the code snippet below. Because we want the bounding boxes of any objects we are interesed in, we create an RGB Camera coupled with a depth camera to do this, as needed by the functions used by the **CARLA-2DBBox** library. We specify the locations of these cameras, with *c* being a vector of the form `[x,y,z,pitch,yaw,roll,camera id]`, and also define a behavior that takes the path where images and the bounding box information are going to be saved, and will make use of the *actors_bb* list with all the objects one wants to track.
+* Added the capability to specify both depth, lidar and RGB cameras, as shown in the code snippet below. Because we want the bounding boxes of any objects we are interesed in, we create an RGB Camera coupled with a depth camera to do this, as needed by the functions used by the **CARLA-2DBBox** library. We specify the locations of these cameras, with *c* being a vector of the form `[x,y,z,pitch,yaw,roll,camera id]`, and also define a behavior that takes the path where images and the bounding box information are going to be saved, and will make use of the *actors_bb* list with all the objects one wants to track.
 
 ```
 behavior CameraBehavior(path):

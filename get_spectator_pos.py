@@ -15,7 +15,7 @@ world = client.get_world()
 if world.get_map().name != "Town10HD":
     world = client.load_world('Town10HD')
 
-input("Press enter to get the position")
+#input("Press enter to get the position")
 
 spectator = world.get_spectator()
 spectator_transform = spectator.get_transform()

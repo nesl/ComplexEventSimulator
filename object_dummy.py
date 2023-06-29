@@ -11,6 +11,9 @@ class Object_Dummy:
         self.pitch = None
         self.yaw = None
         self.roll = None
+        self.behavior = None
 
     def get_transform(self):
         return self.carlaActor.get_transform()
+        
+        
