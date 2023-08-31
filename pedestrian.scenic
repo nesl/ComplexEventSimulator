@@ -234,7 +234,7 @@ behavior SpawnDrop(box_destination, final_destination):
         elif state == 1 and simulation().currentTime - past_time > Uniform(1,60)*fps: #Move towards destination
             d = distance from self to box_destination
             #print(d)
-            if d < 2:
+            if d < 3:
                 take SetWalkingSpeedAction(0)
                 past_time = simulation().currentTime
                 state += 1
@@ -1240,7 +1240,7 @@ def coordinated_attack():
 
     spawn_locations = [[10.286928, -37.113400, -131.359329],[-6.142745,86.108368,-44.225304]]
     
-    box_destinations = [26.043566 @ -7.181683, -24.393764 @ 89.643570, -135.396088 @ -55.014839]
+    box_destinations = [26.043566 @ -7.181683, -24.393764 @ 89.643570, -122.396088 @ -55.014839]
 
 
 
