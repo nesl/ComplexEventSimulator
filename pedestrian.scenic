@@ -475,12 +475,13 @@ behavior CameraStreamingBehavior(camera_id,server_socket,stop_listening_event,pa
     
         #print(self.connected, camera_id)
         if not self.connected:  
-            
+
             server_connection,current_server_listening_thread = setupListeningServer(camera_id,server_socket,stop_listening_event)
             if server_connection:
                 self.connected = True
     
         if self.connected:
+
             # MADE A CHANGE: This will always send the camera ID rather than the frame_index
             take SendImages(frame_index,camera_id,server_connection,current_server_listening_thread,stop_listening_event,path)
             #take SendImages(camera_id,camera_id,server_connection,current_server_listening_thread,stop_listening_event)    
@@ -900,7 +901,7 @@ def car_planning2(agent,current_position,destination):
     agent._local_planner.set_global_plan(new_route_trace)
 
 behavior CrashCar(car_to_crash, final_destination):
-    
+
     state = 0
     
     reverse_control = _carla.VehicleControl(reverse=True,throttle=1)
@@ -1044,14 +1045,19 @@ def create_multitude(num_pedestrians,destination_locations,walkerModels):
 def activate_cameras(output_dir,cameras, camera_function, bind_address):
 
     points_data = read_data("locations.txt")
+    # print(cameras)
     camera_descriptions = [x for x in points_data if "tc" in x[-1] and int(x[-1][2:]) in cameras]
-
+    # print("DESCRIPTION:")
+    # print(camera_descriptions)
+    # asdf
     stop_listening_event = threading.Event()
 
     for c in camera_descriptions:
 
+        # print("HIHIHI")
+
         if camera_function == 'CameraBehavior':
-                
+                # print("Activating as 1")
                 
                 depth_camera = depthCamera at c[0] @ -c[1], 
                     with elevation c[2],
@@ -1075,6 +1081,7 @@ def activate_cameras(output_dir,cameras, camera_function, bind_address):
                     with camera_id int(c[-1][-1]),
                     with behavior CameraBehavior(output_dir)
         else:
+                # print("Activating as 2")
                 camera_id = int(c[-1][-1])
                 print(camera_id)
                 server_socket = setup_connections_and_handling(camera_id, bind_address)
@@ -1095,15 +1102,17 @@ def activate_cameras(output_dir,cameras, camera_function, bind_address):
 
 def run_scenario(num_scenario=0,cameras_on=[], num_extra_pedestrians=0, output_dir=".", bind_address=''):
     
-    
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
     scenarios = [flash_robbery, street_takeover, package_theft, coordinated_attack, hit_and_run] #[first_scenario,second_scenario,third_scenario,fourth_scenario, test_scenario]
     
     destination_locations,walkerModels = scenarios[num_scenario-1]()
+    print("HIEGHIEGHIEGHIEH\n")
     
     if num_extra_pedestrians > 0:
         create_multitude(num_extra_pedestrians,destination_locations,walkerModels)
     
-
     if cameras_on:
         activate_cameras(output_dir=output_dir, cameras=cameras_on, camera_function='CameraBehavior', bind_address=bind_address)
 
@@ -1270,6 +1279,7 @@ def coordinated_attack():
     
 def hit_and_run():
 
+    print("HIT AND RUN")
     global actors_bb
     
     car_to_crash_location = [0.923356,-127.128075]
